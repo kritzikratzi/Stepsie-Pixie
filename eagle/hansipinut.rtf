@@ -1,0 +1,69 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red0\green255\blue0;\red255\green0\blue0;\red0\green0\blue0;
+}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Buttons\
+D5\
+D6\
+D7\
+\
+Stepper\
+D3 =\
+D4\
+D8\
+D9\
+\
+D10 => Trigger WRONG\
+\
+\
+\
+PINS vom OLED ESP:\
+d3  =IO0\
+d4 = IO2\
+d8 = IO15\
+d9 = rxd = GPIO3\
+d10 = txd = GPIO1\
+\
+up=GPIO13 auf gnd = D7\
+down = GPIO12 auf gnd = D6\
+press = GPIO14 = D5\
+\
+Wir brauchen:\
+- 3 Inputs f. Buttons\
+- 4 Out f\'fcr Stepper\
+- 1 Out ENA\
+- 1 Out Trigger\
+\
+\
+Probieren wir mal:\
+GPIO0 = S1 => D3 \cf2 OK\cf0 \
+GPIO2 = S2 => D4? => \cf3 Darf offenbar kein IN sein\'85 => \cf4 D10\cf2  mit int. Pullup OK\cf0 \
+ADC = S3 \cf2 OK\cf0 \
+\
+Dann bleiben:\
+GPIO12 = D6 = Stepper\
+GPIO13 = D7 = Stepper\
+GPIO3 = RXD = D9 = Stepper = Wie vorher\
+GPIO1 = TXD = D10 = Relais verkehrt rum => machma mal D4 draus \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 GPIO14 = D5 = Stepper\
+GPIO15 = D8 den machma zu Stepper enable\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+stepper alt zu neu\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 D3 = D5 = rxd hat pullup!\
+D4 = D6 = gpio12\
+D8 = D7 = GPIO13\
+D9 = D9 gleich = 4a?\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\
+ADC als Input verwenden????\
+txd darf nicht pulldown@boot\
+\
+\
+}
