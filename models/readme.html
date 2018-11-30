@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="author" content="MarkdownViewer++" />
+        <title>readme.md</title>
+        <style type="text/css">
+            
+/* Avoid page breaks inside the most common attributes, especially for exports (i.e. PDF) */
+td, h1, h2, h3, h4, h5, p, ul, ol, li {
+    page-break-inside: avoid; 
+}
+
+        </style>
+      </head>
+    <body>
+        <h1 id="d-models">3D Models</h1>
+<p><strong>As always, work in progress</strong></p>
+<p>This folder contains the 3d print models for stepsie pixie. You will need blender, openscad and a slicer tool of your choice to generate the STL and gcode files needed for printing.</p>
+<h2 id="stepper-to-lego-attachment">Stepper to lego attachment</h2>
+<p><img src="images/motorblock.png"><br>
+See <code>motorblock.scad</code></p>
+<p>A little attachement for a Nema-17 stepper with lots of oppertunities to connect to lego.</p>
+<h2 id="tripod-to-lego-attachment">Tripod to lego attachment</h2>
+<p><img src="images/tripod.png"><br>
+See <code>tripod.6.blend</code></p>
+<p>A lego for an incredibly cheap but incredibly well built ball head tripod.
+<a href="https://www.amazon.de/Andoer-Kamera-Kugelkopf-Schnellwechselplatte-Schraube/dp/B00JSJXH3Q/">https://www.amazon.de/Andoer-Kamera-Kugelkopf-Schnellwechselplatte-Schraube/dp/B00JSJXH3Q/</a></p>
+<p>This also requires a large tripod screw to hold the tripod in place.</p>
+<h2 id="pcb-box-no-lego-attachment-yet">PCB Box (no lego attachment yet)</h2>
+<p><img src="images/box-pcb.png"><br>
+<img src="images/box.png"><br></p>
+<ul>
+<li><code>Hinged_Box_asymtest.scad</code> The actual box. Print this!</li>
+<li><code>case.1.blend</code> Coarse layout of the PCB. I use this to make quick 2-layer prints to see if it fits in the real world.</li>
+<li><code>hinge-pcb.stl</code> STL export of the blender file. This is used in the openscad file to make lots of holes.</li>
+</ul>
+<h2 id="library-credits">Library Credits</h2>
+<ul>
+<li>Openscad lego library: <a href="https://github.com/cfinke/LEGO.scad">https://github.com/cfinke/LEGO.scad</a> (MIT License)</li>
+<li>Openscad hinged box: <a href="https://www.thingiverse.com/thing:82533">https://www.thingiverse.com/thing:82533</a> (CC-BY-NC)</li>
+</ul>
+
+    </body>
+</html>
+            
