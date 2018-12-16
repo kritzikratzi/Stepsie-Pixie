@@ -1,11 +1,11 @@
 class Button{
 public: 
 
-  Button( size_t gpio, int triggerInterval = 250 ) : gpio(gpio), triggerInterval(triggerInterval){}
+  Button( bool(*rf)(void), int triggerInterval = 250 ) : read_func(rf), triggerInterval(triggerInterval){}
   
   bool update(unsigned long now){
     lastNow = now; 
-    bool state = !digitalRead(gpio);
+    bool state = read_func();
     if(state){
       pressed = true; 
       if(pressedSince==0) pressedSince = now;
@@ -40,9 +40,9 @@ public:
     return numSuccessTriggers; 
   }
 
-
+  bool (*read_func)(void);
+  
 private: 
-  size_t gpio; 
   unsigned long pressedSince = 0;
   unsigned long lastTrigger = 0; 
   unsigned long triggerInterval; 

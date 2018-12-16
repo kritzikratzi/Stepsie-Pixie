@@ -20,9 +20,9 @@ std::vector<Value*> values({&numSteps, &stepSpeed, &interval, &record});
 
 Value * editValue = &numSteps; 
 
-Button btnNext(BTN1_GPIO); 
-Button btnUp(BTN2_GPIO); 
-Button btnDown(BTN3_GPIO); 
+Button btnUp([](){ return (bool)!digitalRead(BTN1_GPIO);}); 
+Button btnDown([](){ return (bool)!digitalRead(BTN2_GPIO);}); 
+Button btnNext([](){ return analogRead(A0) < 512;}); 
 
 typedef enum State{
   STEP_INIT,
@@ -42,6 +42,11 @@ bool shouldTakePicture = false;
 void setupMenu(){
   // Initialising the UI will init the display too.
   display.init();
+  delay(100); 
+  display.clear(); 
+  display.init(); 
+  delay(100); 
+  
   if(DISPLAY_ROTATE){
     display.flipScreenVertically();
   }
@@ -59,7 +64,7 @@ void setupMenu(){
     value->load(); 
   }
 
-  record = true; 
+  record = false; 
 }
 
 void updateMenu(){
@@ -93,6 +98,7 @@ void updateMenu(){
     value = value + increment; 
   }; 
   
+
   if(btnUp.triggered()){
     incValue(btnUp, *editValue, +1); 
   }
@@ -100,8 +106,9 @@ void updateMenu(){
   if(btnDown.triggered()){
     incValue(btnDown, *editValue, -1); 
   }
-
+  
   record = ((record%2)+2)%2; 
+  digitalWrite(ENABLE_PIN, record?HIGH:LOW); 
 
   if(record){
     unsigned long T = std::max(1,std::max(interval.get(), -interval.get()))*1000; 
@@ -159,6 +166,7 @@ void updateMenu(){
   }
 }
 
+
 void drawMenu(){
   display.clear();
 
@@ -169,18 +177,24 @@ void drawMenu(){
   display.drawString(5,54, record?"Run ...":"Stopped"); 
 
   if(editValue == &numSteps) display.drawString(0,2, "*"); 
-  display.drawString(50, 0, String(analogRead(A0))); 
+  display.drawString(50, 0, String(numSteps)); 
   if(editValue == &stepSpeed) display.drawString(0,12, "*"); 
   display.drawString(50,10, String(stepSpeed)); 
   if(editValue == &interval) display.drawString(0,22, "*"); 
   display.drawString(50,20, String(interval)); 
   if(editValue == &record) display.drawString(0,56, "*"); 
 
+
   if(record){
     display.drawProgressBar(50, 55, 50, 8, std::min(100,(int)stepRemainingPct));
   }
   
   display.drawString(80,20,"sec"); 
+
+  display.drawFastImage(118,0, 8, 8, icon_tri_up); 
+  display.drawFastImage(118,30, 8, 8, icon_tri_down); 
+  display.drawFastImage(118,52, 8, 8, icon_tri_next); 
+  
   display.display();  
 }
 
